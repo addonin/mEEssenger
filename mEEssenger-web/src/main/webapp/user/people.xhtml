@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="./../templates/masterTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:util="http://xmlns.jcp.org/jsf/composite/components"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="top">
+        
+        <h:outputScript library="js" name="main.js" target="head" />
+        
+        <h:form>
+            <p:menubar>
+                <p:menuitem value="Profile" url="/faces/user/profile.xhtml" icon="ui-icon-person"/>
+                <p:menuitem value="People" url="/faces/user/people.xhtml" icon="ui-icon-search" />
+                <p:menuitem value="Messages" url="/faces/user/messages.xhtml" icon="ui-icon-mail-closed"/>
+                <f:facet name="options">
+                    <util:logout/> 
+                    <util:locale/>                                                                          
+                </f:facet>               
+            </p:menubar>
+        </h:form>
+    </ui:define>
+
+    <ui:define name="content">
+        
+        <h:form id="searchForm"> 
+            
+            <h:inputText id="searchInput" value="#{usersManagedBean.searchString}">
+                <f:ajax render="searchResult" event="keyup" />
+            </h:inputText>
+        
+            <h:dataTable id="searchResult" value="#{usersManagedBean.searchStringChanged()}" var="user">
+                <h:column>
+                <f:facet name="header">
+                    <h:outputText value="ID" />
+                </f:facet>
+                <h:outputText value="#{user.userId}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Username" />
+                </f:facet>
+                <h:outputText value="#{user.username}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Activity" />
+                </f:facet>
+                <h:outputText value="#{user.activity}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Action" />
+                </f:facet>
+                
+                <h:commandButton id="searchAddButton" value="Add" action="#{relationsManagedBean.addRelation()}" 
+                                     rendered="#{!(relationsManagedBean.findRelation(principal.userId, user.userId)) &amp;&amp; !(relationsManagedBean.findRelation(user.userId, principal.userId))}">
+                    <f:param name="candidateId" value="#{user.userId}"/>                    
+                </h:commandButton>
+                <h:commandButton id="searchApproveButton" value="Approve" action="#{relationsManagedBean.addRelation()}" 
+                                 rendered="#{!(relationsManagedBean.findRelation(principal.userId, user.userId)) &amp;&amp; relationsManagedBean.findRelation(user.userId, principal.userId)}">
+                    <f:param name="candidateId" value="#{user.userId}"/>
+                </h:commandButton>
+                <h:commandButton id="searchRejectButton" value="Reject" action="#{relationsManagedBean.removeRelation()}" 
+                                 rendered="#{relationsManagedBean.findRelation(principal.userId, user.userId) &amp;&amp; !(relationsManagedBean.findRelation(user.userId, principal.userId))}">
+                    <f:param name="candidateId" value="#{user.userId}"/>
+                </h:commandButton>
+                <h:commandButton id="searchRemoveButton" value="Remove" action="#{relationsManagedBean.removeRelation()}" 
+                                 rendered="#{relationsManagedBean.findRelation(principal.userId, user.userId) &amp;&amp; relationsManagedBean.findRelation(user.userId, principal.userId)}">                    
+                    <f:param name="candidateId" value="#{user.userId}"/>
+                </h:commandButton>
+            
+            </h:column>  
+            </h:dataTable>
+        
+        </h:form>
+        
+
+
+        
+    </ui:define>
+
+</ui:composition>

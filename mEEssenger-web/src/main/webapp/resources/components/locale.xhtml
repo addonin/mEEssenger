@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <span class="component">
+            <h:form>
+                <h:panelGrid columns="2"> 
+                    <h:outputText value="#{msg.language} : "></h:outputText> 
+                    <h:selectOneMenu value="#{localeManagedBean.locale}" onchange="submit()"
+                                     valueChangeListener="#{localeManagedBean.localeChanged}">
+                        <f:selectItems value="#{localeManagedBean.countries}" /> 
+                    </h:selectOneMenu> 
+                </h:panelGrid>
+            </h:form>
+        </span>
+    </cc:implementation>
+</html>

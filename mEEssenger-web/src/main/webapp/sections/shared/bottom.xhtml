@@ -1,0 +1,15 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+    
+    <div class="footer">
+        <center>
+            <h:form>
+                <h:commandLink value="#{msg.feedback}" action="feedback.xhtml?faces-redirect=true"></h:commandLink>                                                    
+            </h:form>
+            <br/>
+            <h:outputText value="© #{msg.kiev} 2014"></h:outputText>
+        </center>
+    </div>
+</ui:composition>
+

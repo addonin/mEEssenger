@@ -1,0 +1,32 @@
+<ui:composition template="./templates/masterTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml" 
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:util="http://xmlns.jcp.org/jsf/composite/components"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="top">
+        <h:form> 
+            <p:growl id="messages"/> 
+                <p:menubar>
+                    <f:facet name="options">
+                        <util:locale/> 
+                    </f:facet>                
+                </p:menubar>  
+        </h:form>
+    </ui:define>
+
+    <ui:define name="content">        
+        <h:form>
+            <center>
+                <h:outputText value="#{msg.passwordRecovery}"></h:outputText>
+                <br/><br/>
+                <h:inputText id="email" value="#{passwordRecoveryManagedBean.email}"></h:inputText>
+                <h:commandButton value="#{msg.send}" action="#{passwordRecoveryManagedBean.checkEmail}"
+                    type="submit"></h:commandButton>
+            </center>
+        </h:form>        
+    </ui:define>
+
+</ui:composition>

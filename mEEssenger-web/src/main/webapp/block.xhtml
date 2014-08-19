@@ -1,0 +1,20 @@
+<ui:composition template="./templates/masterTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml" 
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:util="http://xmlns.jcp.org/jsf/composite/components">
+
+    <ui:define name="top">
+        <util:locale/>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>
+        <center>
+            <h:outputText value="#{msg.block}"></h:outputText>            
+        </center>
+    </h:form>
+    </ui:define>
+
+</ui:composition>
